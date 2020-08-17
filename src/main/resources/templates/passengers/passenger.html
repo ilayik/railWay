@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h2>Hello passengers!</h2>
+<!--<a href ="/startIRW/passengers/aaa"><h2>Go to PASSENGER AAA site</h2></a>-->
+<div>
+    <form method="post">
+        <label for="PassName">Passenger Name</label>
+        <input id="PassName" type="text" name="PassengerName" value="Name"/>
+        <br>
+        <br>
+        <label for="PassSurName">Passenger SurName</label>
+        <input id="PassSurName" type="text"  name="PassengerSurName" value="SurName"/>
+        <br>
+        <br>
+        <label for="PassDataBirth">Passenger SurName</label>
+        <input id="PassDataBirth" type="text"  name="PassengerDataBirth" value="dd.MM.yyyy"/>
+        <br>
+        <br>
+        <button type="submit"> Save Passenger </button>
+    </form>
+</div>
+<br>
+<br>
+    <div>
+        <table>
+            <tr th:each="passenger: ${allPassengersList}">
+                <td th:text="${passenger.name}"></td>
+                <td th:text="${passenger.surname}"></td>
+                <td th:text="${passenger.birthdate}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

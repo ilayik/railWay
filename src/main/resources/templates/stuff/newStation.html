@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>new station!</h2>
+<div>
+    <form method="post">
+        <label for="StatName">Station Name</label>
+        <input id="StatName" type="text" name="stationName" value="StationName"/>
+        <br>
+        Timetable
+        <br>
+        <label for="Timetable">trainNumber and data</label>
+        <input id="Timetable" type="text"  name="timetableTrainNumber" value="trainNumber and data"/>
+<!--        <br>-->
+<!--        <br>-->
+<!--        <label for="PassDataBirth">Passenger SurName</label>-->
+<!--        <input id="PassDataBirth" type="text"  name="timetableData" value="dd.MM.yyyy"/>-->
+        <br>
+        <br>
+        <button type="submit"> Save Station </button>
+    </form>
+</div>
+<br>
+<br>
+<div>
+    <table>
+        <tr th:each="station: ${allStationList}">
+            <td th:text="${station.stationName}"></td>
+            <td th:text="${station.stationTimeTable}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</body>
+</html>
