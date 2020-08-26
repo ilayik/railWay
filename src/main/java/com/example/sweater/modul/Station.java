@@ -1,14 +1,7 @@
 package com.example.sweater.modul;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Table(name = "station")
@@ -19,8 +12,18 @@ public class Station {
     private Integer id;
 
     private String name;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "station")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "station", cascade = CascadeType.ALL)
     private List<Schedule> schedules;
+
+
+
+    public Station(String name, List<Schedule> schedule) {
+        this.name = name;
+        this.schedules = schedule;
+    }
+
+    public Station() {
+    }
 
     public Integer getId() {
         return id;
@@ -30,12 +33,32 @@ public class Station {
         this.id = id;
     }
 
-    public Station(String name, List<Schedule> schedule) {
-        this.name = name;
-        this.schedules = schedule;
+    public String getName() {
+        return name;
     }
 
-    public Station() {
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        if( schedules != null ){
+            schedules.forEach(schedule -> {
+                schedule.setStation(this);
+            });
+        }
+        this.schedules = schedules;
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

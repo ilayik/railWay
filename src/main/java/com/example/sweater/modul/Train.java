@@ -1,11 +1,7 @@
 package com.example.sweater.modul;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -16,41 +12,77 @@ public class Train {
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
 
-    private int trainNumber;
-    private String trainRoute; //тут должен быть List<String>(что бы я заполнил его Station.getName()) но выдает ошибку хз
-    private int trainCapacity;
+    private String number;
+    private String capacity;
+    @OneToMany(fetch = FetchType.EAGER , mappedBy = "train", cascade = CascadeType.ALL)
+    private List<Schedule> schedules;
+
+//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//    @JoinTable(
+//            name = "schedule_train",
+//            joinColumns = {@JoinColumn(name = "schedule_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "train_id")})
+//    private List<Schedule> schedules;
 
     public Train() {
     }
 
-    public Train(int trainNumber, String trainRoute, int trainCapacity) {
-        this.trainNumber = trainNumber;
-        this.trainRoute = trainRoute;
-        this.trainCapacity = trainCapacity;
+    public Train(String trainNumber, String capacity) {
+        this.number = trainNumber;
+        this.capacity = capacity;
     }
 
-    public int getTrainNumber() {
-        return trainNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setTrainNumber(int trainNumber) {
-        this.trainNumber = trainNumber;
+    public void setNumber(String trainNumber) {
+        this.number = trainNumber;
     }
 
-    public String getTrainRoute() {
-        return trainRoute;
+    public List<Schedule> getTrainRoute() {
+        return schedules;
     }
 
-    public void setTrainRoute(String trainRoute) {
-        this.trainRoute = trainRoute;
+    public void setTrainRoute(List<Schedule> trainRoute) {
+        this.schedules = trainRoute;
     }
 
-    public int getTrainCapacity() {
-        return trainCapacity;
+    public String getCapacity() {
+        return capacity;
     }
 
-    public void setTrainCapacity(int trainCapacity) {
-        this.trainCapacity = trainCapacity;
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        if( schedules != null ){
+            schedules.forEach(schedule -> {
+                schedule.setTrain(this);
+            });
+        }
+        this.schedules = schedules;
+    }
+
+    @Override
+    public String toString() {
+        return "Train{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                '}';
     }
 }
 

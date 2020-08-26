@@ -1,12 +1,8 @@
 package com.example.sweater.modul;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "passenger")
@@ -19,14 +15,25 @@ public class Passenger {
     private String name;
     private String surname;
     private Date birthdate;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "passenger", cascade = CascadeType.ALL)
+    private List<Ticket> tickets;
+
 
     public Passenger() {
     }
 
-    public Passenger(String passengerName, String passengerSurName, Date passengerDataBirth) {
-        this.name = passengerName;
-        this.surname = passengerSurName;
-        this.birthdate = passengerDataBirth;
+    public Passenger(String name, String surname, Date birthdate) {
+        this.name = name;
+        this.surname = surname;
+        this.birthdate = birthdate;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -41,15 +48,29 @@ public class Passenger {
         return surname;
     }
 
-    public void setSurname(String passengerSurName) {
-        this.surname = passengerSurName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date passengerDataBirth) {
-        this.birthdate = passengerDataBirth;
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        if(tickets != null){
+            for (Ticket ticket:tickets) {
+                ticket.setPassenger(this);
+            }
+        }
+        this.tickets = tickets;
+    }
+
 }
