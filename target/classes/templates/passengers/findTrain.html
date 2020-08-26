@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>findAWay</title>
+</head>
+<body>
+<!--<table>-->
+<!--    <tr th:each="station: ${allStations}">-->
+<!--        <td th:text="${station.name}" ></td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+    <div>
+        <form method="post">
+            <label for="StatA">Station A name</label>
+<!--            <input id="StatA" type="text" name="stationA" value="stationName9"/>-->
+                    <input id="StatA" name="stationA" list="names" autocomplete="off"/>
+                    <datalist id="names">
+                        <tr th:each="station: ${allStations}">
+                            <option th:value="${station.name}" ></option>
+                        </tr>
+                    </datalist>
+            <br>
+            <br>
+            <label for="StatB">Station B name</label>
+<!--            <input id="StatB" type="text" name="stationB" value="StationName1"/>-->
+                    <input id="StatB" name="stationB" list="names2" autocomplete="off"/>
+                    <datalist id="names2">
+                        <tr th:each="station: ${allStations}">
+                            <option th:value="${station.name}" ></option>
+                        </tr>
+                    </datalist>
+            <br>
+            <br>
+            <label for="DateA">Passenger SurName</label>
+            <input id="DateA" type="text"  name="DateA" value="01.11.1993"/>
+            <br>
+            <br>
+            <label for="DateB">Passenger SurName</label>
+            <input id="DateB" type="text"  name="DateB" value="20.11.1993"/>
+            <br>
+            <br>
+            <button type="submit" formaction="/findTrainPost"> find trains </button>
+        </form>
+        <div th:if="${mustTrains.size() > 0}">
+            <table>
+                <tr th:each="train: ${mustTrains}">
+                    <td th:text="${train}"></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${mustTrains.size() == 0}">
+            <p>NET TAKOGO POEZDA!</p>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ScheduleStation</title>
+</head>
+<body>
+<div>
+    <form method="post">
+        <label for="Timetable1">StationName</label>
+        <input id="Timetable1" name="stationName" list="namesis" autocomplete="off"/>
+        <datalist id="namesis">
+            <tr th:each="station: ${allStation}">
+                <option th:value="${station.name}" ></option>
+            </tr>
+        </datalist>
+        <button type="submit" formaction="/SchedulesByStationPost">look schedule</button>
+    </form>
+    <table>
+    <tr th:each="schedule: ${scheduleByStationName}">
+        <td th:text="${schedule.train}"></td>
+        <td th:text="${schedule.arrival}"></td>
+    </tr>
+    </table>
+</div>
+</body>
+</html>
