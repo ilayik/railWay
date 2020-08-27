@@ -13,6 +13,9 @@ public class Ticket {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "passenger_id")
     private Passenger passenger;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "train_id")
+    private Train train;
 
     public Ticket() {
     }

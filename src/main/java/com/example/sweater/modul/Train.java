@@ -16,6 +16,8 @@ public class Train {
     private String capacity;
     @OneToMany(fetch = FetchType.EAGER , mappedBy = "train", cascade = CascadeType.ALL)
     private List<Schedule> schedules;
+    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
+    private List<Ticket> tickets;
 
 //    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    @JoinTable(
