@@ -91,7 +91,7 @@ public class TrainService {
                 Date trainArrivalB = stationService.getArrivalByTrain(stationB, train.getNumber());//время прибытия поезда на станцию stationNameB
 
                 if(trainArrivalA.getTime() < trainArrivalB.getTime()){ //сравнение времени прибытия поезда на станции stationNameA и stationNameA (в правильную ли сторону он едет)
-                    if((trainArrivalA.getTime()>arrivalA.getTime())&&(trainArrivalB.getTime()<arrivalB.getTime())){
+                    if((trainArrivalA.getTime()>=arrivalA.getTime())&&(trainArrivalB.getTime()<=arrivalB.getTime())){
                         trains.add(train);
                     }
                 }
