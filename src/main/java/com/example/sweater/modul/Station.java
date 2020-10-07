@@ -1,5 +1,8 @@
 package com.example.sweater.modul;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -10,20 +13,19 @@ public class Station {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
-
     private String name;
+//    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "station", cascade = CascadeType.ALL)
     private List<Schedule> schedules;
 
 
-
-    public Station(String name, List<Schedule> schedule) {
-        this.name = name;
-        this.schedules = schedule;
-    }
-
     public Station() {
     }
+
+//    public Station(String name, List<Schedule> schedule) {
+//        this.name = name;
+//        this.schedules = schedule;
+//    }
 
     public Integer getId() {
         return id;
@@ -54,11 +56,4 @@ public class Station {
         this.schedules = schedules;
     }
 
-    @Override
-    public String toString() {
-        return "Station{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

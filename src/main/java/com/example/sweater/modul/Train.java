@@ -1,5 +1,8 @@
 package com.example.sweater.modul;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,20 +14,14 @@ public class Train {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
-
     private String number;
     private String capacity;
-    @OneToMany(fetch = FetchType.EAGER , mappedBy = "train", cascade = CascadeType.ALL)
-    private List<Schedule> schedules;
-    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
-    private List<Ticket> tickets;
 
-//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    @JoinTable(
-//            name = "schedule_train",
-//            joinColumns = {@JoinColumn(name = "schedule_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "train_id")})
-//    private List<Schedule> schedules;
+    @OneToMany(fetch = FetchType.EAGER , mappedBy = "train")
+    private List<Schedule> schedules;
+
+    @OneToMany(mappedBy = "train")
+    private List<Ticket> tickets;
 
     public Train() {
     }
@@ -40,14 +37,6 @@ public class Train {
 
     public void setNumber(String trainNumber) {
         this.number = trainNumber;
-    }
-
-    public List<Schedule> getTrainRoute() {
-        return schedules;
-    }
-
-    public void setTrainRoute(List<Schedule> trainRoute) {
-        this.schedules = trainRoute;
     }
 
     public String getCapacity() {
@@ -79,12 +68,5 @@ public class Train {
         this.schedules = schedules;
     }
 
-    @Override
-    public String toString() {
-        return "Train{" +
-                "id=" + id +
-                ", number='" + number + '\'' +
-                '}';
-    }
 }
 

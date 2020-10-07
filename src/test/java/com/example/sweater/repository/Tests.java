@@ -1,9 +1,8 @@
 package com.example.sweater.repository;
 
-import com.example.sweater.modul.Schedule;
-import com.example.sweater.modul.Station;
-import com.example.sweater.modul.Train;
+import com.example.sweater.modul.*;
 import com.example.sweater.repo.TrainRepo;
+import com.example.sweater.repo.UserRepo;
 import com.example.sweater.service.ScheduleService;
 import com.example.sweater.service.StationService;
 import com.example.sweater.service.TrainService;
@@ -18,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,6 +31,8 @@ public class Tests {
     private ScheduleService scheduleService;
     @Autowired
     private TrainRepo trainRepo;
+    @Autowired
+    private UserRepo userRepo;
     @Test
     public void getStationByName() {
         List<Schedule> schedules = stationService.getStationByName("StationName2").getSchedules();
@@ -124,6 +126,7 @@ public class Tests {
             }
         }else System.out.println("NET TAKOGO POEZA");
     }
+
 
 
 }

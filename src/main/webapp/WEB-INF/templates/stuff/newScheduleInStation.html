@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>new schedule</title>
+</head>
+<body>
+<div>
+    <h2>
+        <p th:text="${lostStationName}"></p>
+        schedules!
+    </h2>
+<!--    <br>-->
+<!--    <table>-->
+<!--    <tr th:each="train: ${allTrain}">-->
+<!--        <td th:text="${train.number}" ></td>-->
+<!--    </tr>-->
+<!--</table>-->
+    <form  method="post">
+        <label for="Timetable1">trainNumber</label>
+
+        <input id="Timetable1" name="number" list="numbers" autocomplete="off"/>
+        <datalist id="numbers">
+            <tr th:each="train: ${allTrain}">
+                <option th:value="${train.number}" ></option>
+            </tr>
+        </datalist>
+        <label for="Timetable2">date arrival</label>
+        <input id="Timetable2" type="text"  name="arrival" value="12.11.1993"/>
+        <button type="submit" formaction="/newScheduleStationPost"> Save train in schedule </button>
+    </form>
+    <table>
+        <tr th:each="schedule: ${schedulesByStationName}">
+            <td th:text="${schedule.id}"></td>
+            <td th:text="${schedule.stationName}"></td>
+            <td th:text="${schedule.trainNumber}"></td>
+            <td th:text="${schedule.arrival}"></td>
+            <td th:text="${schedule.station}"></td>
+        </tr>
+    </table>
+    <form method="post" action="/addSchedulesInNewStation">
+        <button type="submit" > Save station schedule </button>
+    </form>
+</div>
+</body>
+</html>

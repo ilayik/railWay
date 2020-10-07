@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>newTrain</title>
+</head>
+<body>
+<h2>new train!</h2>
+<div>
+    <form method="post" action="/newTrainPost">
+        <label for="trainNumber">Train Number</label>
+        <input  id="trainNumber" type="text" name="number" value="17" />
+        <label for="traincapacity">Train capacity</label>
+        <input id="traincapacity" type="text" name="capacity" value="100" />
+        <br>
+        <button type="submit"> Save Train </button>
+    </form>
+<!--        Schedule-->
+<!--        <br>-->
+<!--        <label >Stations in route</label>-->
+<!--        <input name="stationsName" list="stations" />-->
+<!--        <datalist id="stations">-->
+<!--            <tr th:each="station: ${allStations}">-->
+<!--                <option th:value="${station.name}" ></option>-->
+<!--            </tr>-->
+<!--        </datalist>-->
+<!--        <label for="Timetable2">arrival</label>-->
+<!--        <input id="Timetable2" type="text"  name="arrival" value="12.11.1993"/>-->
+<!--        <button type="submit"> Save Stations Route </button>-->
+<!--    </form>-->
+<!--    <table>-->
+<!--        <tr th:each="train: ${allTrains}">-->
+<!--            <td th:text="${train.number}"></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+<!--    <table>-->
+<!--        <tr th:each="schedule: ${schedulesByTrainNumberList}">-->
+<!--            <td th:text="${schedule.id}"></td>-->
+<!--            <td th:text="${schedule.stationName}"></td>-->
+<!--            <td th:text="${schedule.trainNumber}"></td>-->
+<!--            <td th:text="${schedule.arrival}"></td>-->
+<!--            <td th:text="${schedule.station}"></td>-->
+<!--        </tr>-->
+<!--    </table>-->
+
+</div>
+</body>
+</html>

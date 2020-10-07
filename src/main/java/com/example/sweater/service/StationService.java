@@ -12,16 +12,16 @@ import java.util.List;
 @Service
 public class StationService {
 
-    String LostStationName = null;
+    String LastStationName = null;
 
     @Autowired
     private StationRepo stationRepo;
 
 
-    public void addStation (String name) { //добаляет станцию
+    public Station addStation (String name) { //добаляет станцию
         Station newStation = new Station();
         newStation.setName(name);
-        stationRepo.save(newStation);
+        return stationRepo.save(newStation);
     }
 
     public Iterable<Station> getAllStation(){ // выдаёт список всех станций
@@ -50,16 +50,11 @@ public class StationService {
         return arrival;
     }
 
-
-
-
-
-
-    public String getLostStationName() {
-        return LostStationName;
+    public String getLastStationName() {
+        return LastStationName;
     }
 
-    public void setLostStationName(String lostStationName) {
-        LostStationName = lostStationName;
+    public void setLastStationName(String lastStationName) {
+        LastStationName = lastStationName;
     }
 }

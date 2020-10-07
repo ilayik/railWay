@@ -8,6 +8,9 @@
 <h2>Hello passengers!</h2>
 <!--<a href ="/startIRW/passengers/aaa"><h2>Go to PASSENGER AAA site</h2></a>-->
 <div>
+    <form action="/logout" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
     <form method="post">
         <label for="PassName">Passenger Name</label>
         <input id="PassName" type="text" name="PassengerName" value="Name"/>
@@ -28,10 +31,10 @@
 <br>
     <div>
         <table>
-            <tr th:each="passenger: ${allPassengersList}">
-                <td th:text="${passenger.name}"></td>
-                <td th:text="${passenger.surname}"></td>
-                <td th:text="${passenger.birthdate}"></td>
+            <tr th:each="user: ${allPassengersList}">
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.surname}"></td>
+                <td th:text="${user.birthdate}"></td>
             </tr>
         </table>
     </div>

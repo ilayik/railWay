@@ -3,10 +3,12 @@ package com.example.sweater.service;
 import com.example.sweater.modul.Schedule;
 import com.example.sweater.modul.Station;
 import com.example.sweater.modul.Train;
+import com.example.sweater.repo.ScheduleRepo;
 import com.example.sweater.repo.TrainRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,15 +23,25 @@ public class TrainService {
     @Autowired
     private StationService stationService;
 
-    private String lostTrainNumber;
+    @Autowired
+    private ScheduleService scheduleService;
 
 
 
-    public void addTrain (String number, String capacity) { //добаляет траин
+    public Train updateTrain(Train train) {
+        Train tr = new Train();
+        tr.setSchedules(scheduleService.getSchedulesByTrainNumber(train.getNumber()));
+        tr.setCapacity(train.getCapacity());
+        tr.setNumber(train.getNumber());
+        tr.setId(train.getId());
+        return trainRepo.save(tr);
+    }
+
+    public Train addTrain (String number, String capacity) { //добаляет траин
         Train newTrain = new Train();
         newTrain.setCapacity(number);
         newTrain.setNumber(capacity);
-        trainRepo.save(newTrain);
+        return trainRepo.save(newTrain);
     }
 
     public Iterable<Train> getAllTrain(){// выдаёт список всех станций
@@ -56,20 +68,21 @@ public class TrainService {
         return TrainStations;
     }
 
-    public List<Train> findTrain (String stationNameA, String stationNameB, String strArrivalA, String strArrivalB) throws ParseException {
+//    public List<Train> findTrain (String stationNameA, String stationNameB, String strArrivalA, String strArrivalB) throws ParseException {trainSearchParam
+        public List<Train> findTrain (List<String> trainSearchParam) throws ParseException {
         List<Train> trains = new ArrayList<>();
 
-        Date arrivalA = new SimpleDateFormat("dd.MM.yyyy").parse(strArrivalA);
-        Date arrivalB = new SimpleDateFormat("dd.MM.yyyy").parse(strArrivalB);
+        Date arrivalA = new SimpleDateFormat("dd.MM.yyyy").parse(trainSearchParam.get(2));
+        Date arrivalB = new SimpleDateFormat("dd.MM.yyyy").parse(trainSearchParam.get(3));
 
-        Station stationA = stationService.getStationByName(stationNameA);
-        Station stationB = stationService.getStationByName(stationNameB);
+        Station stationA = stationService.getStationByName(trainSearchParam.get(0));
+        Station stationB = stationService.getStationByName(trainSearchParam.get(1));
 
         for (Train train: trainRepo.findAll()) {
 
             int ch = 0;
             for (Station station: TrainStations(train.getNumber())) {
-                if((station.getName().equals(stationNameA))||(station.getName().equals(stationNameB))){//проверка если ли в маршруте поезда станции stationNameA и stationNameA
+                if((station.getName().equals(trainSearchParam.get(0)))||(station.getName().equals(trainSearchParam.get(1)))){//проверка если ли в маршруте поезда станции stationNameA и stationNameA
                     ch++;
                 }
             }
@@ -85,13 +98,5 @@ public class TrainService {
             }
         }
         return trains;
-    }
-
-
-    public String getLostTrainNumber() {
-        return lostTrainNumber;
-    }
-    public void setLostTrainNumber(String lostTrainNumber) {
-        this.lostTrainNumber = lostTrainNumber;
     }
 }

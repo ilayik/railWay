@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrainRepo extends CrudRepository<Train, Integer> {
+
 }

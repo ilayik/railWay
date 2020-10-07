@@ -28,7 +28,7 @@ public class ScheduleService {
 
 
 
-    public void addSchedule (String arrival, String trainNumber, String stationName ) throws ParseException {
+    public Schedule addSchedule (String arrival, String trainNumber, String stationName ) throws ParseException {
         Date date = new SimpleDateFormat("dd.MM.yyyy").parse(arrival);
         Schedule newSchedule = new Schedule();
         newSchedule.setArrival(date);
@@ -36,7 +36,7 @@ public class ScheduleService {
         newSchedule.setTrainNumber(trainNumber);
         newSchedule.setTrain(trainService.getTrainByNumber(trainNumber));
         newSchedule.setStation(stationService.getStationByName(stationName));
-        scheduleRepo.save(newSchedule);
+        return scheduleRepo.save(newSchedule);
     }
 
     public Iterable<Schedule> getAllSchedule(){
@@ -53,8 +53,8 @@ public class ScheduleService {
         return stationSchedules;
     }
 
-    public Iterable<Schedule> getSchedulesByTrainNumber(String TrainNumber){ // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужному поезду (по номеру поезда)
-        ArrayList<Schedule> trainSchedules = new ArrayList<>();
+    public List<Schedule> getSchedulesByTrainNumber(String TrainNumber){ // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужному поезду (по номеру поезда)
+        List<Schedule> trainSchedules = new ArrayList<>();
         for (Schedule schedule : getAllSchedule()) {
             if(schedule.getTrainNumber().equals(TrainNumber)) {
                 trainSchedules.add(schedule);

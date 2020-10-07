@@ -1,5 +1,8 @@
 package com.example.sweater.modul;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -16,25 +19,18 @@ public class Schedule {
     private Date arrival;
     private String stationName;
 
-//    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-//    @JoinTable(
-//            name = "schedule_train",
-//            joinColumns = {@JoinColumn(name = "train_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "schedule_id")})
-//    private List<Train> trains;
-
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "train_id")
     private Train train;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "station_id")
     private Station station;
 
     public Schedule() {
     }
-
-
 
     public Schedule(Integer id, String trainNumber, Date arrival, String stationName) {
         this.id = id;
@@ -50,10 +46,6 @@ public class Schedule {
         this.stationName = stationName;
         this.station = station;
     }
-
-    public Schedule(Integer trainNumber, Date arrival, String stationName) {}
-
-    public Schedule(Integer trainNumber, Date arrival, Station station, String stationName) {}
 
     public Integer getId() {
         return id;
@@ -103,11 +95,5 @@ public class Schedule {
         this.train = train;
     }
 
-    @Override
-    public String toString() {
-        return "Schedule{" +
-                "id=" + id +
-                '}';
-    }
 }
 

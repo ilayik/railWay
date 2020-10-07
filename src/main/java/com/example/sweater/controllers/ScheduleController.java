@@ -1,5 +1,7 @@
 package com.example.sweater.controllers;
 
+import com.example.sweater.modul.Schedule;
+import com.example.sweater.modul.Station;
 import com.example.sweater.service.ScheduleService;
 import com.example.sweater.service.StationService;
 import com.example.sweater.service.TrainService;
@@ -9,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
+import java.util.List;
 
 @Controller
 public class ScheduleController {
@@ -18,44 +22,24 @@ public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
 
-    @Autowired
-    private StationService stationService;
-
-    @Autowired
-    private TrainService trainService;
-
-    @GetMapping("/newScheduleStationGet")
-    public String getAllStation(Model model) {
-        model.addAttribute("allScheduleList",scheduleService.getAllSchedule());
-
-        return "stuff/newScheduleInStation";
+    @GetMapping("/allSchedules")
+    @ResponseBody
+    public Iterable<Schedule> getAllStations() {
+        return scheduleService.getAllSchedule();
     }
 
-    @PostMapping("/newScheduleStationPost")
-    public String addSchedule(@RequestParam(name = "arrival")  String arrival,
-                              @RequestParam (name = "number") String number,
-                              Model model) throws ParseException {
-
-        model.addAttribute("allTrain",trainService.getAllTrain());
-        String lostStationName = stationService.getLostStationName();
-        model.addAttribute("lostStationName", lostStationName);
-        scheduleService.addSchedule(arrival,number,lostStationName);
-        model.addAttribute("schedulesByStationName",scheduleService.getSchedulesByStationName(lostStationName));
-        return "stuff/newScheduleInStation";
-    }
-    @GetMapping("/SchedulesByStationGet")
-    public String SchedulesStati1on(Model model){
-        model.addAttribute("allStation",stationService.getAllStation());
-        return "passengers/SchedulesStation";
+    @PostMapping("/newScheduleStation")
+    @ResponseBody
+    public Schedule addSchedule(@RequestParam(name = "arrival")  String arrival, // добавляет расписание к станции
+                                @RequestParam (name = "number") String number,
+                                @RequestParam(name = "stationName")  String stationName
+    ) throws ParseException {
+        return scheduleService.addSchedule(arrival,number,stationName);
     }
 
-    @PostMapping("/SchedulesByStationPost")
-    public String SchedulesStation(@RequestParam( name = "stationName", defaultValue = "stationName") String stationName,
-                                   Model model){
-        model.addAttribute("allStation",stationService.getAllStation());
-        model.addAttribute("scheduleByStationName", scheduleService.getSchedulesByStationName(stationName));
-        return "passengers/SchedulesStation";
+    @GetMapping("/SchedulesByStation")
+    @ResponseBody
+    public List<Schedule> schedulesByStations(@RequestParam( name = "stationName") String stationName){
+        return scheduleService.getSchedulesByStationName(stationName);
     }
-
-
 }

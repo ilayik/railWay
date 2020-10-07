@@ -1,5 +1,7 @@
 package com.example.sweater.modul;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,28 +11,23 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Integer id;
-    private String trainNumber;
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "passenger_id")
-    private Passenger passenger;
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "train_id")
     private Train train;
 
     public Ticket() {
     }
 
-    public Ticket(String trainNumber, Passenger passenger) {
-        this.trainNumber = trainNumber;
-        this.passenger = passenger;
-    }
-
-    public String getTrainNumber() {
-        return trainNumber;
-    }
-
-    public void setTrainNumber(String trainNumber) {
-        this.trainNumber = trainNumber;
+    public Ticket(User user, Train train) {
+        this.user = user;
+        this.train = train;
     }
 
     public Integer getId() {
@@ -41,14 +38,20 @@ public class Ticket {
         this.id = id;
     }
 
-
-    public Passenger getPassenger() {
-        return passenger;
+    public User getUser() {
+        return user;
     }
 
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
 }
 
