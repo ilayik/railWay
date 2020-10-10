@@ -37,10 +37,10 @@ public class TrainService {
         return trainRepo.save(tr);
     }
 
-    public Train addTrain (String number, String capacity) { //добаляет траин
+    public Train addTrain (Train train) { //добаляет траин
         Train newTrain = new Train();
-        newTrain.setCapacity(number);
-        newTrain.setNumber(capacity);
+        newTrain.setCapacity(train.getCapacity());
+        newTrain.setNumber(train.getNumber());
         return trainRepo.save(newTrain);
     }
 

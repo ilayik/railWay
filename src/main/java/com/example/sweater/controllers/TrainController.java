@@ -28,9 +28,8 @@ public class TrainController {
 
     @PostMapping ("/addTrain")
     @ResponseBody
-    public Train addTrain(@RequestParam (name = "number") String number,
-                          @RequestParam (name = "capacity") String capacity) {
-        return trainService.addTrain(capacity,number);
+    public Train addTrain(@RequestBody Train train) {
+        return trainService.addTrain(train);
     }
 
     @PostMapping("/findTrainPost")
