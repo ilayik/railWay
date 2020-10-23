@@ -4,14 +4,15 @@ import com.example.sweater.modul.Schedule;
 import com.example.sweater.modul.Station;
 import com.example.sweater.service.ScheduleService;
 import com.example.sweater.service.StationService;
-import com.example.sweater.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class StationController {
 
     @Autowired
@@ -20,25 +21,18 @@ public class StationController {
     @Autowired
     private StationService stationService;
 
-    @Autowired
-    private TrainService trainService;
-
     @GetMapping("/allStation")
-    @ResponseBody
     public Iterable<Station> getAllStations() {
         return stationService.getAllStation();
     }
 
     @PostMapping("/addStation")
-    @ResponseBody
     public Station addNewStation(@RequestBody String stationName) {
         stationService.setLastStationName(stationName);
         return stationService.addStation(stationName);
     }
 
-
     @PostMapping("/addSchedulesInNewStation")
-    @ResponseBody
     public Station addScheduleInLostStation() {
         String lastStationName = stationService.getLastStationName();
         List<Schedule> list = scheduleService.getSchedulesByStationName(lastStationName);

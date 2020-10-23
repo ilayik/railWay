@@ -1,45 +1,37 @@
 package com.example.sweater.controllers;
 
 import com.example.sweater.modul.Train;
-import com.example.sweater.service.StationService;
 import com.example.sweater.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.List;
 
-@Controller
+@RestController
 public class TrainController {
     @Autowired
     private TrainService trainService;
 
-    @Autowired
-    private StationService stationService;
-
     @GetMapping("/allTrain")
-    @ResponseBody
     public Iterable<Train> allTrainPage() {
         return trainService.getAllTrain();
     }
 
-    @PostMapping ("/addTrain")
-    @ResponseBody
+    @PostMapping("/addTrain")
     public Train addTrain(@RequestBody Train train) {
         return trainService.addTrain(train);
     }
 
     @PostMapping("/findTrainPost")
-    @ResponseBody
-    public List<Train> findTrainPost (@RequestBody List<String> trainSearchParam) throws ParseException {
+    public List<Train> findTrainPost(@RequestBody List<String> trainSearchParam) throws ParseException {
         return trainService.findTrain(trainSearchParam);
     }
 
-    @PostMapping ("/updateTrain")
-    @ResponseBody
+    @PostMapping("/updateTrain")
     public Train updateTrain(@RequestBody Train train) {
         return trainService.updateTrain(train);
     }

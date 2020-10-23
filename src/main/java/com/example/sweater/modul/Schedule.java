@@ -1,14 +1,15 @@
 package com.example.sweater.modul;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "schedule")
 public class Schedule {
     @Id
@@ -28,72 +29,5 @@ public class Schedule {
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "station_id")
     private Station station;
-
-    public Schedule() {
-    }
-
-    public Schedule(Integer id, String trainNumber, Date arrival, String stationName) {
-        this.id = id;
-        this.trainNumber = trainNumber;
-        this.arrival = arrival;
-        this.stationName = stationName;
-    }
-
-    public Schedule(Integer id, String trainNumber, Date arrival, String stationName, Station station) {
-        this.id = id;
-        this.trainNumber = trainNumber;
-        this.arrival = arrival;
-        this.stationName = stationName;
-        this.station = station;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getStationName() {
-        return stationName;
-    }
-
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
-    }
-
-    public String getTrainNumber() {
-        return trainNumber;
-    }
-
-    public void setTrainNumber(String trainNumber) {
-        this.trainNumber = trainNumber;
-    }
-
-    public Date getArrival() {
-        return arrival;
-    }
-
-    public void setArrival(Date arrival) {
-        this.arrival = arrival;
-    }
-
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
-    }
-
-    public Train getTrain() {
-        return train;
-    }
-
-    public void setTrain(Train train) {
-        this.train = train;
-    }
-
 }
 

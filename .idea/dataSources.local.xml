@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="fierstdb@localhost" uuid="6dfa9cfa-0f04-4b3d-bfbc-63e69924da88">
+    <data-source name="RailwayDB@localhost" uuid="6dfa9cfa-0f04-4b3d-bfbc-63e69924da88">
       <database-info product="PostgreSQL" version="12.3" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.5" dbms="POSTGRES" exact-version="12.3" exact-driver-version="42.2">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>

@@ -6,7 +6,6 @@ import com.example.sweater.repo.ScheduleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,8 +26,7 @@ public class ScheduleService {
     private StationService stationService;
 
 
-
-    public Schedule addSchedule (String arrival, String trainNumber, String stationName ) throws ParseException {
+    public Schedule addSchedule(String arrival, String trainNumber, String stationName) throws ParseException {
         Date date = new SimpleDateFormat("dd.MM.yyyy").parse(arrival);
         Schedule newSchedule = new Schedule();
         newSchedule.setArrival(date);
@@ -39,24 +37,24 @@ public class ScheduleService {
         return scheduleRepo.save(newSchedule);
     }
 
-    public Iterable<Schedule> getAllSchedule(){
+    public Iterable<Schedule> getAllSchedule() {
         return scheduleRepo.findAll();
     }
 
-    public List<Schedule> getSchedulesByStationName(String stationName){ // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужной станции(ищет по имени станции)
+    public List<Schedule> getSchedulesByStationName(String stationName) { // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужной станции(ищет по имени станции)
         List<Schedule> stationSchedules = new ArrayList<>();
         for (Schedule schedule : getAllSchedule()) {
-            if(schedule.getStationName().equals(stationName)) {
+            if (schedule.getStationName().equals(stationName)) {
                 stationSchedules.add(schedule);
             }
         }
         return stationSchedules;
     }
 
-    public List<Schedule> getSchedulesByTrainNumber(String TrainNumber){ // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужному поезду (по номеру поезда)
+    public List<Schedule> getSchedulesByTrainNumber(String TrainNumber) { // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужному поезду (по номеру поезда)
         List<Schedule> trainSchedules = new ArrayList<>();
         for (Schedule schedule : getAllSchedule()) {
-            if(schedule.getTrainNumber().equals(TrainNumber)) {
+            if (schedule.getTrainNumber().equals(TrainNumber)) {
                 trainSchedules.add(schedule);
             }
         }

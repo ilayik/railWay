@@ -18,33 +18,33 @@ public class StationService {
     private StationRepo stationRepo;
 
 
-    public Station addStation (String name) { //добаляет станцию
+    public Station addStation(String name) { //добаляет станцию
         Station newStation = new Station();
         newStation.setName(name);
         return stationRepo.save(newStation);
     }
 
-    public Iterable<Station> getAllStation(){ // выдаёт список всех станций
+    public Iterable<Station> getAllStation() { // выдаёт список всех станций
         return stationRepo.findAll();
     }
 
 
-    public Station getStationByName(String stationName){ //выдаёт станцию по заданому имини
+    public Station getStationByName(String stationName) { //выдаёт станцию по заданому имини
         Station StationByName = null;
-        for (Station station:stationRepo.findAll()) {
-            if (station.getName().equals(stationName)){
+        for (Station station : stationRepo.findAll()) {
+            if (station.getName().equals(stationName)) {
                 StationByName = station;
             }
         }
         return StationByName;
     }
 
-    public Date getArrivalByTrain(Station station, String trainNumber){
+    public Date getArrivalByTrain(Station station, String trainNumber) {
         Date arrival = null;
         List<Schedule> schedules = station.getSchedules();
-        for (Schedule schedule: schedules) {
-            if(schedule.getTrainNumber().equals(trainNumber)){
-            arrival = schedule.getArrival();
+        for (Schedule schedule : schedules) {
+            if (schedule.getTrainNumber().equals(trainNumber)) {
+                arrival = schedule.getArrival();
             }
         }
         return arrival;
