@@ -1,14 +1,13 @@
 package com.example.sweater.service;
 
-import com.example.sweater.modul.Role;
-import com.example.sweater.modul.User;
+import com.example.sweater.model.Role;
+import com.example.sweater.model.User;
 import com.example.sweater.repo.RoleRepo;
 import com.example.sweater.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -34,6 +33,9 @@ public class UserService {
         newUser.setDateBirth(user.getDateBirth());
         return userRepo.save(newUser);
     }
+    
+
+
 
 }
 

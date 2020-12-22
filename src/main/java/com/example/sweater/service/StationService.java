@@ -1,7 +1,7 @@
 package com.example.sweater.service;
 
-import com.example.sweater.modul.Schedule;
-import com.example.sweater.modul.Station;
+import com.example.sweater.model.Schedule;
+import com.example.sweater.model.Station;
 import com.example.sweater.repo.StationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,24 +12,26 @@ import java.util.List;
 @Service
 public class StationService {
 
-    String LastStationName = null;
+    Station LastStation = null;
+
+    private final StationRepo stationRepo;
 
     @Autowired
-    private StationRepo stationRepo;
+    public StationService(StationRepo stationRepo) {
+        this.stationRepo = stationRepo;
+    }
 
-
-    public Station addStation(String name) { //добаляет станцию
+    public Station addStation(Station station) {
         Station newStation = new Station();
-        newStation.setName(name);
+        newStation.setName(station.getName());
         return stationRepo.save(newStation);
     }
 
-    public Iterable<Station> getAllStation() { // выдаёт список всех станций
+    public Iterable<Station> getStations() {
         return stationRepo.findAll();
     }
 
-
-    public Station getStationByName(String stationName) { //выдаёт станцию по заданому имини
+    public Station getStationByName(String stationName) {
         Station StationByName = null;
         for (Station station : stationRepo.findAll()) {
             if (station.getName().equals(stationName)) {
@@ -50,11 +52,11 @@ public class StationService {
         return arrival;
     }
 
-    public String getLastStationName() {
-        return LastStationName;
+    public Station getLastStation() {
+        return LastStation;
     }
 
-    public void setLastStationName(String lastStationName) {
-        LastStationName = lastStationName;
+    public void setLastStation(Station lastStation) {
+        LastStation = lastStation;
     }
 }

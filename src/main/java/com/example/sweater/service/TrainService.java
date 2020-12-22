@@ -1,8 +1,8 @@
 package com.example.sweater.service;
 
-import com.example.sweater.modul.Schedule;
-import com.example.sweater.modul.Station;
-import com.example.sweater.modul.Train;
+import com.example.sweater.model.Schedule;
+import com.example.sweater.model.Station;
+import com.example.sweater.model.Train;
 import com.example.sweater.repo.TrainRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,23 +15,26 @@ import java.util.List;
 
 @Service
 public class TrainService {
-    @Autowired
-    private TrainRepo trainRepo;
+    private final TrainRepo trainRepo;
+
+    private final StationService stationService;
+
+    private final ScheduleService scheduleService;
 
     @Autowired
-    private StationService stationService;
-
-    @Autowired
-    private ScheduleService scheduleService;
-
+    public TrainService(TrainRepo trainRepo, StationService stationService, ScheduleService scheduleService) {
+        this.trainRepo = trainRepo;
+        this.stationService = stationService;
+        this.scheduleService = scheduleService;
+    }
 
     public Train updateTrain(Train train) {
-        Train tr = new Train();
-        tr.setSchedules(scheduleService.getSchedulesByTrainNumber(train.getNumber()));
-        tr.setCapacity(train.getCapacity());
-        tr.setNumber(train.getNumber());
-        tr.setId(train.getId());
-        return trainRepo.save(tr);
+        Train t = new Train();
+        t.setSchedules(scheduleService.getSchedulesByTrainNumber(train.getNumber()));
+        t.setCapacity(train.getCapacity());
+        t.setNumber(train.getNumber());
+        t.setId(train.getId());
+        return trainRepo.save(t);
     }
 
     public Train addTrain(Train train) {
@@ -41,11 +44,11 @@ public class TrainService {
         return trainRepo.save(newTrain);
     }
 
-    public Iterable<Train> getAllTrain() {// выдаёт список всех станций
+    public Iterable<Train> getTrain() {
         return trainRepo.findAll();
     }
 
-    public Train getTrainByNumber(String TrainNumber) { // выдаёт станцию по заданному номеру поезду
+    public Train getTrainByNumber(String TrainNumber) {
         return trainRepo.findAll().stream().filter(t -> t.getNumber().
                 equals(TrainNumber)).
                 findFirst().

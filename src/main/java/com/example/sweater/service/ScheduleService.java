@@ -1,7 +1,8 @@
 package com.example.sweater.service;
 
 
-import com.example.sweater.modul.Schedule;
+import com.example.sweater.model.Schedule;
+import com.example.sweater.model.Station;
 import com.example.sweater.repo.ScheduleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,44 +17,47 @@ import java.util.List;
 @Service
 public class ScheduleService {
 
-    @Autowired
-    private ScheduleRepo scheduleRepo;
+    private final ScheduleRepo scheduleRepo;
+
+    private final TrainService trainService;
+
+    private final StationService stationService;
 
     @Autowired
-    private TrainService trainService;
+    public ScheduleService(ScheduleRepo scheduleRepo, TrainService trainService, StationService stationService) {
+        this.scheduleRepo = scheduleRepo;
+        this.trainService = trainService;
+        this.stationService = stationService;
+    }
 
-    @Autowired
-    private StationService stationService;
-
-
-    public Schedule addSchedule(String arrival, String trainNumber, String stationName) throws ParseException {
-        Date date = new SimpleDateFormat("dd.MM.yyyy").parse(arrival);
+    public Schedule addSchedule(Schedule schedule) throws ParseException {
+        Date date = new SimpleDateFormat("dd.MM.yyyy").parse(schedule.getArrival().toString());
         Schedule newSchedule = new Schedule();
         newSchedule.setArrival(date);
-        newSchedule.setStationName(stationName);
-        newSchedule.setTrainNumber(trainNumber);
-        newSchedule.setTrain(trainService.getTrainByNumber(trainNumber));
-        newSchedule.setStation(stationService.getStationByName(stationName));
+        newSchedule.setStationName(schedule.getStationName());
+        newSchedule.setTrainNumber(schedule.getTrainNumber());
+        newSchedule.setTrain(trainService.getTrainByNumber(schedule.getTrainNumber()));
+        newSchedule.setStation(stationService.getStationByName(schedule.getStationName()));
         return scheduleRepo.save(newSchedule);
     }
 
-    public Iterable<Schedule> getAllSchedule() {
+    public Iterable<Schedule> getSchedules() {
         return scheduleRepo.findAll();
     }
 
-    public List<Schedule> getSchedulesByStationName(String stationName) { // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужной станции(ищет по имени станции)
+    public List<Schedule> getSchedulesByStation(Station station) {
         List<Schedule> stationSchedules = new ArrayList<>();
-        for (Schedule schedule : getAllSchedule()) {
-            if (schedule.getStationName().equals(stationName)) {
+        for (Schedule schedule : getSchedules()) {
+            if (schedule.getStationName().equals(station.getName())) {
                 stationSchedules.add(schedule);
             }
         }
         return stationSchedules;
     }
 
-    public List<Schedule> getSchedulesByTrainNumber(String TrainNumber) { // выдаём лист расписаний (номеПоезда-времяПрибытия) к нужному поезду (по номеру поезда)
+    public List<Schedule> getSchedulesByTrainNumber(String TrainNumber) {
         List<Schedule> trainSchedules = new ArrayList<>();
-        for (Schedule schedule : getAllSchedule()) {
+        for (Schedule schedule : getSchedules()) {
             if (schedule.getTrainNumber().equals(TrainNumber)) {
                 trainSchedules.add(schedule);
             }
