@@ -12,10 +12,16 @@ import java.util.*;
 @Service
 public class UserService {
 
-    @Autowired
+    final
     UserRepo userRepo;
-    @Autowired
+    final
     RoleRepo roleRepo;
+
+    @Autowired
+    public UserService(UserRepo userRepo, RoleRepo roleRepo) {
+        this.userRepo = userRepo;
+        this.roleRepo = roleRepo;
+    }
 
 
     public List<User> allUsers() {
