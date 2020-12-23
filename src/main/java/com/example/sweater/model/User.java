@@ -1,36 +1,43 @@
 package com.example.sweater.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
-@Entity
 @Data
-@NoArgsConstructor
-@Table(name = "usr")
+@Entity
+@Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private long id;
 
+    @Column(name = "login")
+    private String login;
+
+    @Column(name = "password")
     private String password;
-    private String username;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
-    private Date dateBirth;
 
-    @Transient
-    private String passwordConfirm;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private List<Ticket> tickets;
 
 }

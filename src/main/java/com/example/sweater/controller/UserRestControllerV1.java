@@ -29,10 +29,10 @@ public class UserRestControllerV1 {
         return userService.allUsers();
     }
 
-    @PostMapping
-    public User addUser(@RequestBody User user) {
-        return userService.saveUser(user);
-    }
+//    @PostMapping
+//    public User addUser(@RequestBody User user) {
+//        return userService.saveUser(user);
+//    }
 
     @PostMapping("/save-last")
     public User addLastUser(@RequestBody User user) {

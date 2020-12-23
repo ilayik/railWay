@@ -1,5 +1,7 @@
-package com.example.sweater.model;
+package com.example.sweater.dto;
 
+import com.example.sweater.model.Train;
+import com.example.sweater.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

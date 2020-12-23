@@ -1,31 +1,27 @@
 package com.example.sweater.model;
 
-import lombok.Data;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import javax.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-@Entity
-@Table(name = "role")
-public @Data
-class Role {
+public enum Role {
+    USER(Set.of(Permission.DEVELOPERS_READ)),
+    ADMIN(Set.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE));
 
-    @Id
-    private Integer id;
-    private String name;
+    private final Set<Permission> permissions;
 
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
-
-    public Role(Integer id, String name) {
-
-        this.id = id;
-        this.name = name;
+    Role(Set<Permission> permissions) {
+        this.permissions = permissions;
     }
 
-    public Role() {
+    public Set<Permission> getPermissions() {
+        return permissions;
     }
 
-
+    public Set<SimpleGrantedAuthority> getAuthorities() {
+        return getPermissions().stream()
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                .collect(Collectors.toSet());
+    }
 }

@@ -15,22 +15,20 @@ import java.util.List;
 
 @Service
 public class TrainService {
+
     private final TrainRepo trainRepo;
 
     private final StationService stationService;
 
-    private final ScheduleService scheduleService;
-
     @Autowired
-    public TrainService(TrainRepo trainRepo, StationService stationService, ScheduleService scheduleService) {
+    public TrainService(TrainRepo trainRepo, StationService stationService) {
         this.trainRepo = trainRepo;
         this.stationService = stationService;
-        this.scheduleService = scheduleService;
     }
+
 
     public Train updateTrain(Train train) {
         Train t = new Train();
-        t.setSchedules(scheduleService.getSchedulesByTrainNumber(train.getNumber()));
         t.setCapacity(train.getCapacity());
         t.setNumber(train.getNumber());
         t.setId(train.getId());
@@ -76,16 +74,20 @@ public class TrainService {
         for (Train train : trainRepo.findAll()) {
 
             int ch = 0;
+            //проверка если ли в маршруте поезда станции stationNameA и stationNameA
             for (Station station : TrainStations(train.getNumber())) {
-                if ((station.getName().equals(trainSearchParam.get(0))) || (station.getName().equals(trainSearchParam.get(1)))) {//проверка если ли в маршруте поезда станции stationNameA и stationNameA
+                if ((station.getName().equals(trainSearchParam.get(0))) || (station.getName().equals(trainSearchParam.get(1)))) {
                     ch++;
                 }
             }
             if (ch == 2) {
-                Date trainArrivalA = stationService.getArrivalByTrain(stationA, train.getNumber());//время прибытия поезда на станцию stationNameA
-                Date trainArrivalB = stationService.getArrivalByTrain(stationB, train.getNumber());//время прибытия поезда на станцию stationNameB
+                //время прибытия поезда на станцию stationNameA
+                Date trainArrivalA = stationService.getArrivalByTrain(stationA, train.getNumber());
+                //время прибытия поезда на станцию stationNameB
+                Date trainArrivalB = stationService.getArrivalByTrain(stationB, train.getNumber());
 
-                if (trainArrivalA.getTime() < trainArrivalB.getTime()) { //сравнение времени прибытия поезда на станции stationNameA и stationNameA (в правильную ли сторону он едет)
+                //сравнение времени прибытия поезда на станции stationNameA и stationNameA (в правильную ли сторону он едет)
+                if (trainArrivalA.getTime() < trainArrivalB.getTime()) {
                     if ((trainArrivalA.getTime() >= arrivalA.getTime()) && (trainArrivalB.getTime() <= arrivalB.getTime())) {
                         trains.add(train);
                     }

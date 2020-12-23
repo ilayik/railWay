@@ -40,7 +40,7 @@ public class ScheduleRestControllerV1 {
         }
     }
 
-    @GetMapping("/by-station")
+    @PostMapping("/by-station")
     public List<Schedule> getSchedulesByStation(@RequestBody Station station) {
         return scheduleService.getSchedulesByStation(station);
     }

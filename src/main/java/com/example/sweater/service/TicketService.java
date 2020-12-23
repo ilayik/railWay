@@ -3,7 +3,7 @@ package com.example.sweater.service;
 import com.example.sweater.model.Ticket;
 import com.example.sweater.model.Train;
 import com.example.sweater.model.User;
-import com.example.sweater.model.TicketDTO;
+import com.example.sweater.dto.TicketDTO;
 import com.example.sweater.repo.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,22 +32,22 @@ public class TicketService {
         return ticketRepo.findAll();
     }
 
-    public int ticketUserCheck(TicketDTO ticketDTO) {
-        User user = ticketDTO.getUser();
-        Train train = ticketDTO.getTrain();
-        // 0 - нет проблем , 1 - на поезде нет мест, 2 - уже есть билет на этот поезд
-        int ticketCheck = 0;
-        if (Integer.parseInt(train.getCapacity())<=0) {
-            ticketCheck = 1;
-        }
-        for (Ticket ticket : getTickets()) {
-            if ((ticket.getUser().getId().equals(user.getId())) && (ticket.getTrain().getId().equals(train.getId()))) {
-                ticketCheck = 2;
-                break;
-            }
-        }
-        return ticketCheck;
-    }
+//    public int ticketUserCheck(TicketDTO ticketDTO) {
+//        User user = ticketDTO.getUser();
+//        Train train = ticketDTO.getTrain();
+//        // 0 - нет проблем , 1 - на поезде нет мест, 2 - уже есть билет на этот поезд
+//        int ticketCheck = 0;
+//        if (Integer.parseInt(train.getCapacity())<=0) {
+//            ticketCheck = 1;
+//        }
+//        for (Ticket ticket : getTickets()) {
+//            if ((ticket.getUser().getId().equals(user.getId())) && (ticket.getTrain().getId().equals(train.getId()))) {
+//                ticketCheck = 2;
+//                break;
+//            }
+//        }
+//        return ticketCheck;
+//    }
 
     public List<User> getUsersByTrainNumber(String trainNumber) {
         String n = trainNumber.split(" ")[1];

@@ -1,7 +1,7 @@
 package com.example.sweater.controller;
 
 import com.example.sweater.model.Ticket;
-import com.example.sweater.model.TicketDTO;
+import com.example.sweater.dto.TicketDTO;
 import com.example.sweater.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,10 +26,10 @@ public class TicketRestControllerV1 {
         return ticketService.addTicket(ticketDTO);
     }
 
-    @PostMapping("/user-check")
-    public int userCheck(@RequestBody TicketDTO ticketDTO) {
-        return ticketService.ticketUserCheck(ticketDTO);
-    }
+//    @PostMapping("/user-check")
+//    public int userCheck(@RequestBody TicketDTO ticketDTO) {
+//        return ticketService.ticketUserCheck(ticketDTO);
+//    }
 
 }
 
