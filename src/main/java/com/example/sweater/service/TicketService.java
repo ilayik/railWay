@@ -32,22 +32,22 @@ public class TicketService {
         return ticketRepo.findAll();
     }
 
-//    public int ticketUserCheck(TicketDTO ticketDTO) {
-//        User user = ticketDTO.getUser();
-//        Train train = ticketDTO.getTrain();
-//        // 0 - нет проблем , 1 - на поезде нет мест, 2 - уже есть билет на этот поезд
-//        int ticketCheck = 0;
-//        if (Integer.parseInt(train.getCapacity())<=0) {
-//            ticketCheck = 1;
-//        }
-//        for (Ticket ticket : getTickets()) {
-//            if ((ticket.getUser().getId().equals(user.getId())) && (ticket.getTrain().getId().equals(train.getId()))) {
-//                ticketCheck = 2;
-//                break;
-//            }
-//        }
-//        return ticketCheck;
-//    }
+    public int ticketUserCheck(TicketDTO ticketDTO) {
+        User user = ticketDTO.getUser();
+        Train train = ticketDTO.getTrain();
+        // 0 - нет проблем , 1 - на поезде нет мест, 2 - уже есть билет на этот поезд
+        int ticketCheck = 0;
+        if (Integer.parseInt(train.getCapacity())<=0) {
+            ticketCheck = 1;
+        }
+        for (Ticket ticket : getTickets()) {
+            if ((ticket.getUser().getId().equals(user.getId())) && (ticket.getTrain().getId().equals(train.getId()))) {
+                ticketCheck = 2;
+                break;
+            }
+        }
+        return ticketCheck;
+    }
 
     public List<User> getUsersByTrainNumber(String trainNumber) {
         String n = trainNumber.split(" ")[1];

@@ -4,6 +4,7 @@ import com.example.sweater.model.User;
 import com.example.sweater.service.TicketService;
 import com.example.sweater.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,28 +26,38 @@ public class UserRestControllerV1 {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('write')")
     public List<User> getUsers() {
         return userService.allUsers();
     }
 
-//    @PostMapping
-//    public User addUser(@RequestBody User user) {
-//        return userService.saveUser(user);
-//    }
+    @PostMapping
+    @PreAuthorize("hasAuthority('read')")
+    public User addUser(@RequestBody User user) {
+        return userService.saveUser(user);
+    }
 
     @PostMapping("/save-last")
+    @PreAuthorize("hasAuthority('read')")
     public User addLastUser(@RequestBody User user) {
         return lastUser = user;
     }
 
     @GetMapping("/get-last")
+    @PreAuthorize("hasAuthority('read')")
     public User getLastUser() {
         return lastUser;
     }
 
 
     @GetMapping("/on-train")
+    @PreAuthorize("hasAuthority('write')")
     public List<User> getUsersOnTrain(@RequestParam(name = "trainNumber") String trainNumber) {
         return ticketService.getUsersByTrainNumber(trainNumber);
+    }
+
+    @GetMapping("/check-authority")
+    @PreAuthorize("hasAuthority('write')")
+    public void userCheck() {
     }
 }

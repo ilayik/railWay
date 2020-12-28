@@ -4,6 +4,7 @@ import com.example.sweater.model.Ticket;
 import com.example.sweater.dto.TicketDTO;
 import com.example.sweater.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +23,16 @@ public class TicketRestControllerV1 {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('read')")
     public Ticket addTicket(@RequestBody TicketDTO ticketDTO) {
         return ticketService.addTicket(ticketDTO);
     }
 
-//    @PostMapping("/user-check")
-//    public int userCheck(@RequestBody TicketDTO ticketDTO) {
-//        return ticketService.ticketUserCheck(ticketDTO);
-//    }
+    @PostMapping("/user-check")
+    @PreAuthorize("hasAuthority('read')")
+    public int userCheck(@RequestBody TicketDTO ticketDTO) {
+        return ticketService.ticketUserCheck(ticketDTO);
+    }
 
 }
 

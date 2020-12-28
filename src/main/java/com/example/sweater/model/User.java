@@ -12,7 +12,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "login")
     private String login;
@@ -37,7 +37,7 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "users")
+    @OneToMany( mappedBy = "user")
     private List<Ticket> tickets;
 
 }

@@ -20,17 +20,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-//    public User saveUser(User user) {
-//        User newUser = new User();
-//
-//        newUser.setRoles(Collections.singleton(new Role(1, "ROLE_USER")));
-//        newUser.setUsername(user.getUsername());
-//        newUser.setPassword(user.getPassword());
-//        newUser.setFirstName(user.getFirstName());
-//        newUser.setLastName(user.getLastName());
-//        newUser.setDateBirth(user.getDateBirth());
-//        return userRepository.save(newUser);
-//    }
+    public User saveUser(User user) {
+        User newUser = new User();
+
+        newUser.setLogin(user.getLogin());
+        newUser.setPassword(user.getPassword());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setEmail(user.getEmail());
+
+        return userRepository.save(newUser);
+    }
 
 
 }

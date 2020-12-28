@@ -2,8 +2,8 @@ package com.example.sweater.model;
 
 public enum Permission {
 
-    DEVELOPERS_READ("developers:read"),
-    DEVELOPERS_WRITE("developers:write");
+    READ("read"),
+    WRITE("write");
 
     private final String permission;
 

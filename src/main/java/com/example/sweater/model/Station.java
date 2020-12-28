@@ -9,12 +9,12 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "station")
+@Table(name = "stations")
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
     private String name;
 

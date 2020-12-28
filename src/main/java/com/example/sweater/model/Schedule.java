@@ -10,12 +10,12 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "schedule")
+@Table(name = "schedules")
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
     private String trainNumber;
     private Date arrival;
     private String stationName;

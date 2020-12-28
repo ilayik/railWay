@@ -3,6 +3,7 @@ package com.example.sweater.controller;
 import com.example.sweater.model.Station;
 import com.example.sweater.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,11 +18,13 @@ public class StationRestControllerV1 {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('read')")
     public Iterable<Station> getStations() {
         return stationService.getStations();
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('write')")
     public Station addStation(@RequestBody Station station) {
         stationService.setLastStation(station);
         return stationService.addStation(station);

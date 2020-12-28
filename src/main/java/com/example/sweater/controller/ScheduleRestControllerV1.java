@@ -5,6 +5,7 @@ import com.example.sweater.model.Station;
 import com.example.sweater.service.ScheduleService;
 import com.example.sweater.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -26,11 +27,13 @@ public class ScheduleRestControllerV1 {
 
 
     @GetMapping
+    @PreAuthorize("hasAuthority('read')")
     public Iterable<Schedule> getSchedules() {
         return scheduleService.getSchedules();
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('write')")
     public Schedule addSchedule(@RequestBody Schedule schedule) {
         try {
             return scheduleService.addSchedule(schedule);
@@ -41,11 +44,13 @@ public class ScheduleRestControllerV1 {
     }
 
     @PostMapping("/by-station")
+    @PreAuthorize("hasAuthority('read')")
     public List<Schedule> getSchedulesByStation(@RequestBody Station station) {
         return scheduleService.getSchedulesByStation(station);
     }
 
     @PostMapping("/add-in-station")
+    @PreAuthorize("hasAuthority('write')")
     public Station addSchedulesInLastStation() {
         Station lastStation = stationService.getLastStation();
         List<Schedule> list = scheduleService.getSchedulesByStation(lastStation);

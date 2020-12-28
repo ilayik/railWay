@@ -10,12 +10,12 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "train")
+@Table(name = "trains")
 public class Train {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
     private String number;
     private String capacity;

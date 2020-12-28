@@ -9,12 +9,12 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "ticket")
+@Table(name = "tickets")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private Integer id;
+    private Long id;
 
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE})
