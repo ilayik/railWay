@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Table(name = "schedules")
 public class Schedule {
     @Id
@@ -32,13 +32,5 @@ public class Schedule {
     @JoinColumn(name = "station_id")
     private Station station;
 
-    public Schedule(Long id, String trainNumber, Date arrival, String stationName, Train train, Station station) {
-        this.id = id;
-        this.trainNumber = trainNumber;
-        this.arrival = arrival;
-        this.stationName = stationName;
-        this.train = train;
-        this.station = station;
-    }
 }
 
