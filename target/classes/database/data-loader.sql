@@ -57,5 +57,5 @@ values  (2, 'admin@ya.ru', 'Admin', 'Adminov', 'admin', '$2y$12$848m1a67MyM36WfY
         (1, 'user@ya.ru', 'User', 'Userov', 'user', '$2y$12$8u7dQmDBKjfUWUe/HZyGEukSHt7YdgHfKkERHVoL0ULgy9cZRajyu', 'USER', 'ACTIVE');
 
 insert into tickets (id, train_id, user_id)
-values  (1, 3, 1),
-        (2, 2, 1);
+values  (1, 3, 1);
+

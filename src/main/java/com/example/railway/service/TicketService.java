@@ -1,9 +1,9 @@
 package com.example.railway.service;
 
+import com.example.railway.dto.TicketDTO;
 import com.example.railway.model.Ticket;
 import com.example.railway.model.Train;
 import com.example.railway.model.User;
-import com.example.railway.dto.TicketDTO;
 import com.example.railway.repo.TicketRepo;
 import com.example.railway.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -27,7 +26,7 @@ public class TicketService {
 
     public Ticket addTicket(TicketDTO ticketDTO) {
         Ticket ticket = new Ticket();
-        User userByLogin = userRepository.findByLogin(ticketDTO.getUser().getLogin()).orElse(null);
+        User userByLogin = userRepository.findByLogin(ticketDTO.getUserLogin()).orElse(null);
         ticket.setUser(userByLogin);
         ticket.setTrain(ticketDTO.getTrain());
         return ticketRepo.save(ticket);
@@ -38,11 +37,11 @@ public class TicketService {
     }
 
     public int ticketUserCheck(TicketDTO ticketDTO) {
-        User user = ticketDTO.getUser();
+        User user = userRepository.findByLogin(ticketDTO.getUserLogin()).orElse(null);
         Train train = ticketDTO.getTrain();
         // 0 - нет проблем , 1 - на поезде нет мест, 2 - уже есть билет на этот поезд
         int ticketCheck = 0;
-        if (Integer.parseInt(train.getCapacity())<=0) {
+        if (Integer.parseInt(train.getCapacity()) <= 0) {
             ticketCheck = 1;
         }
         for (Ticket ticket : getTickets()) {

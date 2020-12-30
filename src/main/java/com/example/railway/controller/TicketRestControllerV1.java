@@ -1,7 +1,7 @@
 package com.example.railway.controller;
 
-import com.example.railway.model.Ticket;
 import com.example.railway.dto.TicketDTO;
+import com.example.railway.model.Ticket;
 import com.example.railway.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

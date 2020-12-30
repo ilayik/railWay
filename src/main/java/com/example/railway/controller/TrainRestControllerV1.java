@@ -44,7 +44,7 @@ public class TrainRestControllerV1 {
     }
 
     @PostMapping("/update")
-    @PreAuthorize("hasAuthority('write')")
+    @PreAuthorize("hasAuthority('read')")
     public Train updateTrain(@RequestBody Train train) {
         return trainService.updateTrain(train);
     }

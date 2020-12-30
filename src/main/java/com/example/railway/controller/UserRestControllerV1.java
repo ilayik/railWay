@@ -15,9 +15,7 @@ public class UserRestControllerV1 {
 
     private final UserService userService;
 
-    private final TicketService  ticketService;
-
-    public User lastUser = new User();
+    private final TicketService ticketService;
 
     @Autowired
     public UserRestControllerV1(UserService userService, TicketService ticketService) {
@@ -37,19 +35,6 @@ public class UserRestControllerV1 {
         return userService.saveUser(user);
     }
 
-    @PostMapping("/save-last")
-    @PreAuthorize("hasAuthority('read')")
-    public User addLastUser(@RequestBody User user) {
-        return lastUser = user;
-    }
-
-    @GetMapping("/get-last")
-    @PreAuthorize("hasAuthority('read')")
-    public User getLastUser() {
-        return lastUser;
-    }
-
-
     @GetMapping("/on-train")
     @PreAuthorize("hasAuthority('write')")
     public List<User> getUsersOnTrain(@RequestParam(name = "trainNumber") String trainNumber) {
@@ -63,7 +48,7 @@ public class UserRestControllerV1 {
 
     @GetMapping("/get-name")
     @PreAuthorize("hasAuthority('read')")
-    public String getUserName (@RequestParam (name = "login") String login){
+    public String getUserName(@RequestParam(name = "login") String login) {
         return userService.getUserName(login);
     }
 }
