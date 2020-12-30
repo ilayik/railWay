@@ -5,25 +5,30 @@ import com.example.railway.model.Train;
 import com.example.railway.model.User;
 import com.example.railway.dto.TicketDTO;
 import com.example.railway.repo.TicketRepo;
+import com.example.railway.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
 
     private final TicketRepo ticketRepo;
+    private final UserRepository userRepository;
 
     @Autowired
-    public TicketService(TicketRepo ticketRepo) {
+    public TicketService(TicketRepo ticketRepo, UserRepository userRepository) {
         this.ticketRepo = ticketRepo;
+        this.userRepository = userRepository;
     }
 
     public Ticket addTicket(TicketDTO ticketDTO) {
         Ticket ticket = new Ticket();
-        ticket.setUser(ticketDTO.getUser());
+        User userByLogin = userRepository.findByLogin(ticketDTO.getUser().getLogin()).orElse(null);
+        ticket.setUser(userByLogin);
         ticket.setTrain(ticketDTO.getTrain());
         return ticketRepo.save(ticket);
     }

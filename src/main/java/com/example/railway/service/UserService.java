@@ -32,6 +32,12 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
+    public String getUserName (String login){
+        String firstName = userRepository.findByLogin(login).orElse(null).getFirstName();
+        String lastName = userRepository.findByLogin(login).orElse(null).getLastName();
+        return firstName + " " + lastName;
+    }
+
 
 }
 

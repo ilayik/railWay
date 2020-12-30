@@ -60,4 +60,10 @@ public class UserRestControllerV1 {
     @PreAuthorize("hasAuthority('write')")
     public void userCheck() {
     }
+
+    @GetMapping("/get-name")
+    @PreAuthorize("hasAuthority('read')")
+    public String getUserName (@RequestParam (name = "login") String login){
+        return userService.getUserName(login);
+    }
 }
