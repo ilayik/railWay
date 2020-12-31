@@ -30,7 +30,6 @@ public class UserRestControllerV1 {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('read')")
     public User addUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
@@ -50,5 +49,10 @@ public class UserRestControllerV1 {
     @PreAuthorize("hasAuthority('read')")
     public String getUserName(@RequestParam(name = "login") String login) {
         return userService.getUserName(login);
+    }
+
+    @GetMapping("/valid-login")
+    public String validLogin(@RequestParam(name = "login") String login) {
+        return userService.validLogin(login);
     }
 }
