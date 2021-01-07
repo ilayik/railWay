@@ -8,7 +8,6 @@ delete from users;
 insert into trains (id, capacity, number)
 values  (5, '100', '5'),
         (4, '99', '4'),
-        (45, '133', '12'),
         (1, '0', '1'),
         (3, '65', '3'),
         (2, '75', '2');

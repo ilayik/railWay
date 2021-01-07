@@ -43,18 +43,16 @@ public class ScheduleRestControllerV1 {
         }
     }
 
-    @PostMapping("/by-station")
+    @GetMapping("/by-station")
     @PreAuthorize("hasAuthority('read')")
-    public List<Schedule> getSchedulesByStation(@RequestBody Station station) {
-        return scheduleService.getSchedulesByStation(station);
+    public List<Schedule> getSchedulesByStation(@RequestParam String stationName) {
+        return scheduleService.getSchedulesByStation(stationName);
     }
 
     @PostMapping("/add-in-station")
     @PreAuthorize("hasAuthority('write')")
-    public Station addSchedulesInLastStation() {
-        Station lastStation = stationService.getLastStation();
-        List<Schedule> list = scheduleService.getSchedulesByStation(lastStation);
-        lastStation.setSchedules(list);
-        return lastStation;
+    public List<Schedule> addSchedulesInLastStation(@RequestBody List<Schedule> list) throws ParseException {
+//        Station lastStation = stationService.getStationByName(stationService.getLastStationName());
+        return scheduleService.addSchedulesInLastStation(list);
     }
 }

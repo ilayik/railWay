@@ -51,7 +51,6 @@ public class TrainService {
                 equals(TrainNumber)).
                 findFirst().
                 orElse(null);
-
     }
 
     public List<Station> TrainStations(String trainNumber) {
@@ -72,7 +71,6 @@ public class TrainService {
         Station stationB = stationService.getStationByName(trainSearchParam.get(1));
 
         for (Train train : trainRepo.findAll()) {
-
             int ch = 0;
             //проверка если ли в маршруте поезда станции stationNameA и stationNameA
             for (Station station : TrainStations(train.getNumber())) {

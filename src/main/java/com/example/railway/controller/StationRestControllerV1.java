@@ -26,7 +26,7 @@ public class StationRestControllerV1 {
     @PostMapping
     @PreAuthorize("hasAuthority('write')")
     public Station addStation(@RequestBody Station station) {
-        stationService.setLastStation(station);
+        stationService.setLastStationName(station.getName());
         return stationService.addStation(station);
     }
 }

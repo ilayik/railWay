@@ -15,7 +15,6 @@ import java.util.List;
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     private String name;

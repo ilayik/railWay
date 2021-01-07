@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class StationService {
 
-    Station LastStation = null;
+    String LastStationName = null;
 
     private final StationRepo stationRepo;
 
@@ -23,7 +23,9 @@ public class StationService {
 
     public Station addStation(Station station) {
         Station newStation = new Station();
+
         newStation.setName(station.getName());
+
         return stationRepo.save(newStation);
     }
 
@@ -52,11 +54,11 @@ public class StationService {
         return arrival;
     }
 
-    public Station getLastStation() {
-        return LastStation;
+    public String getLastStationName() {
+        return LastStationName;
     }
 
-    public void setLastStation(Station lastStation) {
-        LastStation = lastStation;
+    public void setLastStationName(String lastStationName) {
+        LastStationName = lastStationName;
     }
 }

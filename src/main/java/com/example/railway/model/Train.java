@@ -14,7 +14,6 @@ import java.util.List;
 public class Train {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
     private String number;

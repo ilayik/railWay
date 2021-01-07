@@ -31,9 +31,9 @@ public class ScheduleService {
     }
 
     public Schedule addSchedule(Schedule schedule) throws ParseException {
-        Date date = new SimpleDateFormat("dd.MM.yyyy").parse(schedule.getArrival().toString());
+//        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(schedule.getArrival().toString());
         Schedule newSchedule = new Schedule();
-        newSchedule.setArrival(date);
+        newSchedule.setArrival(schedule.getArrival());
         newSchedule.setStationName(schedule.getStationName());
         newSchedule.setTrainNumber(schedule.getTrainNumber());
         newSchedule.setTrain(trainService.getTrainByNumber(schedule.getTrainNumber()));
@@ -45,10 +45,10 @@ public class ScheduleService {
         return scheduleRepo.findAll();
     }
 
-    public List<Schedule> getSchedulesByStation(Station station) {
+    public List<Schedule> getSchedulesByStation(String stationName) {
         List<Schedule> stationSchedules = new ArrayList<>();
         for (Schedule schedule : getSchedules()) {
-            if (schedule.getStationName().equals(station.getName())) {
+            if (schedule.getStationName().equals(stationName)) {
                 stationSchedules.add(schedule);
             }
         }
@@ -63,6 +63,15 @@ public class ScheduleService {
             }
         }
         return trainSchedules;
+    }
+
+    public List<Schedule> addSchedulesInLastStation (List<Schedule> schedules) throws ParseException {
+        List<Schedule> resSchedules = new ArrayList<>();
+//        Station stationByLastName = stationService.getStationByName(stationService.LastStationName);
+
+        for (Schedule schedule: schedules)
+            resSchedules.add(addSchedule(schedule));
+        return resSchedules;
     }
 
 

@@ -28,11 +28,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String validLogin(String login){
-        if(login.isEmpty() || login == null)
+    public String validLogin(String login) {
+        if (login.isEmpty() || login == null)
             return "Please enter your login";
 
-        if(allUsers().stream().anyMatch(user -> user.getLogin().equals(login)))
+        if (allUsers().stream().anyMatch(user -> user.getLogin().equals(login)))
             return "Login " + login + " is used";
 
         return "";
@@ -57,7 +57,5 @@ public class UserService {
         String lastName = userRepository.findByLogin(login).orElse(null).getLastName();
         return firstName + " " + lastName;
     }
-
-
 }
 
